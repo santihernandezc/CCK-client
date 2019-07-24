@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import "./App.scss";
 import Header from "./components/Header/Header";
 
 import Evento from "./components/Evento/Evento";
@@ -14,12 +14,13 @@ function App() {
   return (
     <>
       <Header />
-      <section className="App">
-        <h2>Eventos:</h2>
-        {eventos.map((evento, i) => (
-          <Evento evento={evento} key={i} />
-        ))}
-      </section>
+      <main className="App">
+        <article className="eventos">
+          {eventos.map((evento, i) => (
+            <Evento evento={evento} key={i} />
+          ))}
+        </article>
+      </main>
     </>
   );
 }

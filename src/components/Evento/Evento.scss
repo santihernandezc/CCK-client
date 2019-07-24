@@ -1,0 +1,31 @@
+@import "../../assets/colores.scss";
+
+.Evento {
+  border: 1px solid $negro;
+  width: 60%;
+  margin: 1rem;
+  display: flex;
+  .imagen {
+    display: flex;
+  }
+  .detalles {
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    ul {
+      .Paga {
+        color: $rojo;
+      }
+      .Gratis {
+        color: $verde;
+      }
+    }
+    .botones {
+      margin-top: 10px;
+      .btn {
+        margin-right: 5px;
+      }
+    }
+  }
+}
