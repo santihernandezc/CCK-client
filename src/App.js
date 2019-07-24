@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
+import Home from "./containers/Home/Home";
 import Header from "./components/Header/Header";
-
-import Evento from "./components/Evento/Evento";
 
 function App() {
   let [eventos, setEventos] = useState([]);
@@ -14,13 +13,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="App">
-        <article className="eventos">
-          {eventos.map((evento, i) => (
-            <Evento evento={evento} key={i} />
-          ))}
-        </article>
-      </main>
+      <Home eventos={eventos} />
     </>
   );
 }

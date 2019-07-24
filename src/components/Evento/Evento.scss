@@ -2,18 +2,25 @@
 
 .Evento {
   border: 1px solid $negro;
-  width: 60%;
+  width: 100%;
   margin: 1rem;
   display: flex;
+  h2 {
+    margin-bottom: 10px;
+  }
   .imagen {
     display: flex;
   }
   .detalles {
-    margin-left: 10%;
+    margin: 0 10%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    ul {
+    .fecha-lugar {
+      font-style: italic;
+    }
+    p {
+      margin-bottom: 5px;
       .Paga {
         color: $rojo;
       }
@@ -25,6 +32,11 @@
       margin-top: 10px;
       .btn {
         margin-right: 5px;
+        &.reservado {
+          background-color: lighten($verde, 15%);
+          border: 1px solid $principal-oscuro;
+          color: $blanco;
+        }
       }
     }
   }
