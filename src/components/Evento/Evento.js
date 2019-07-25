@@ -22,7 +22,7 @@ const Evento = ({ evento, handleButtonClick }) => {
       case "Próximamente":
         return (
           <button className="btn" onClick={() => handleButtonClick(evento)}>
-            Guardar reserva
+            Agendar
           </button>
         );
       default:

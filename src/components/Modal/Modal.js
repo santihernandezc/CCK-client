@@ -1,6 +1,8 @@
 import React from "react";
 import "./Modal.scss";
 
+import Loader from "../Loader/Loader";
+
 const Modal = ({ open, closeModal, evento, confirm }) => {
   const handleConfirmClick = () => {
     let payload = {
@@ -17,6 +19,7 @@ const Modal = ({ open, closeModal, evento, confirm }) => {
         <button className="btn" onClick={handleConfirmClick}>
           Confirmar
         </button>
+        <Loader />
       </article>
     </div>
   );

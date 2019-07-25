@@ -35,7 +35,7 @@ const Eventos = ({ eventos }) => {
         break;
     }
     console.log(accion);
-    fetch(`https://cck-server.herokuapp.com//${accion}`, {
+    fetch(`https://cck-server.herokuapp.com/${accion}`, {
       method: "POST",
       body: JSON.stringify(dataEvento),
       headers: {
