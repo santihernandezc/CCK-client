@@ -6,7 +6,7 @@ import Header from "./components/Header/Header";
 function App() {
   let [eventos, setEventos] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000")
+    fetch("https://cck-server.herokuapp.com/")
       .then(data => data.json())
       .then(eventos => setEventos(eventos));
   }, []);

@@ -5,17 +5,29 @@
   width: 100%;
   margin: 1rem;
   display: flex;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
   h2 {
     margin-bottom: 10px;
   }
   .imagen {
     display: flex;
+    @media screen and (max-width: 768px) {
+      max-width: 90vw;
+      img {
+        max-width: 100%;
+      }
+    }
   }
   .detalles {
     margin: 0 10%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    @media screen and (max-width: 768px) {
+      padding: 1.5rem 0 2rem;
+    }
     .fecha-lugar {
       font-style: italic;
     }
@@ -30,6 +42,7 @@
     }
     .botones {
       margin-top: 10px;
+
       .btn {
         margin-right: 5px;
         &.reservado {
