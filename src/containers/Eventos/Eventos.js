@@ -13,15 +13,29 @@ const Eventos = ({ eventos }) => {
   };
 
   const handleEventClick = evento => {
-    console.log(evento);
     setModalOpen(true);
     setEventoSeleccionado(evento);
   };
 
-  const handleConfirm = ({ nombre, fecha, id }) => {
+  const handleConfirm = ({ nombre, fecha, id, entrada }) => {
     let dataEvento = { nombre, fecha, id };
     console.log(dataEvento);
-    fetch("http://localhost:5000", {
+    let accion = "";
+    switch (entrada) {
+      case "Paga":
+        accion = "comprar";
+        break;
+      case "Gratis":
+        accion = "reservar";
+        break;
+      case "Próximamente":
+        accion = "agendar";
+        break;
+      default:
+        break;
+    }
+    console.log(accion);
+    fetch(`http://localhost:5000/${accion}`, {
       method: "POST",
       body: JSON.stringify(dataEvento),
       headers: {
@@ -29,8 +43,8 @@ const Eventos = ({ eventos }) => {
       }
     })
       .then(res => res.json())
-      .catch(error => console.error("Error:", error))
-      .then(response => console.log("Success:", response));
+      .then(response => console.log("Bien!:", response))
+      .catch(error => console.error("Error:", error));
   };
 
   return (

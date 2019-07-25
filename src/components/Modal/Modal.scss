@@ -17,11 +17,9 @@
   .Modal {
     display: none;
     background-color: $blanco;
-    padding: 5rem;
+    padding: 3rem 6rem;
     border-radius: 5px;
     transition: all 0.3s color 0.5s;
-    width: 50%;
-    height: 50%;
     h2 {
       font-size: 1.7rem;
       margin-bottom: 15px;

@@ -3,7 +3,10 @@ import "./Modal.scss";
 
 const Modal = ({ open, closeModal, evento, confirm }) => {
   const handleConfirmClick = () => {
-    confirm(evento);
+    let payload = {
+      ...evento
+    };
+    confirm(payload);
   };
   return (
     <div className={`backdrop ${open ? "open" : ""}`} onClick={closeModal}>

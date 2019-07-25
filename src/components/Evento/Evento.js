@@ -60,6 +60,6 @@ const Evento = ({ evento, handleButtonClick }) => {
   );
 };
 const compare = (prevProps, nextProps) => {
-  return prevProps.evento === nextProps.evento;
+  return prevProps.evento.reservado === nextProps.evento.reservado;
 };
 export default React.memo(Evento, compare);
