@@ -29,8 +29,6 @@ const Evento = ({ evento, handleButtonClick }) => {
         break;
     }
   };
-
-  console.log("render!");
   return (
     <article className="Evento">
       <div className="imagen">

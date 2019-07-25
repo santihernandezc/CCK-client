@@ -3,7 +3,7 @@ import "./Modal.scss";
 
 import Loader from "../Loader/Loader";
 
-const Modal = ({ open, closeModal, evento, confirm }) => {
+const Modal = ({ open, closeModal, evento, confirm, fetching }) => {
   const handleConfirmClick = () => {
     let payload = {
       ...evento
@@ -16,10 +16,14 @@ const Modal = ({ open, closeModal, evento, confirm }) => {
         <h2>{evento.nombre}</h2>
         <img src={evento.imagen} alt={evento.titulo} />
         <p>{evento.fecha}</p>
-        <button className="btn" onClick={handleConfirmClick}>
-          Confirmar
-        </button>
-        <Loader />
+
+        {fetching ? (
+          <Loader />
+        ) : (
+          <button className="btn" onClick={handleConfirmClick}>
+            Confirmar
+          </button>
+        )}
       </article>
     </div>
   );

@@ -5,8 +5,13 @@ import Evento from "../../components/Evento/Evento";
 import Modal from "../../components/Modal/Modal";
 
 const Eventos = ({ eventos }) => {
+  let API = "";
+  process.env.REACT_APP_STAGE === "dev"
+    ? (API = "http://localhost:5000/")
+    : (API = "https://cck-server.herokuapp.com/");
   let [modalOpen, setModalOpen] = useState(false);
   let [eventoSeleccionado, setEventoSeleccionado] = useState({});
+  let [isFetching, setIsFetching] = useState(false);
 
   const handleModalClick = () => {
     setModalOpen(false);
@@ -35,7 +40,8 @@ const Eventos = ({ eventos }) => {
         break;
     }
     console.log(accion);
-    fetch(`https://cck-server.herokuapp.com/${accion}`, {
+    setIsFetching(true);
+    fetch(API + accion, {
       method: "POST",
       body: JSON.stringify(dataEvento),
       headers: {
@@ -43,8 +49,14 @@ const Eventos = ({ eventos }) => {
       }
     })
       .then(res => res.json())
-      .then(response => console.log("Bien!:", response))
-      .catch(error => console.error("Error:", error));
+      .then(response => {
+        console.log("Bien!:", response);
+        setIsFetching(false);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        setIsFetching(false);
+      });
   };
 
   return (
@@ -61,6 +73,7 @@ const Eventos = ({ eventos }) => {
         closeModal={handleModalClick}
         evento={eventoSeleccionado}
         confirm={handleConfirm}
+        fetching={isFetching}
       />
     </article>
   );
