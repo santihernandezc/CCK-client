@@ -27,6 +27,7 @@ li {
 }
 
 .btn {
+  text-transform: capitalize;
   border: 1px solid $principal;
   border-radius: 2px;
   background-color: transparent;
@@ -36,11 +37,20 @@ li {
   font-size: 1rem;
   transition: all 0.2s ease;
   cursor: pointer;
+  &.ver-mas {
+    text-transform: none;
+  }
+
   @media screen and (min-width: 768px) {
     &:hover {
       background-color: $principal-claro;
       border: 1px solid $principal-oscuro;
       color: $blanco;
     }
+  }
+  &.reservado {
+    background-color: lighten($verde, 15%);
+    border: 1px solid $principal-oscuro;
+    color: $blanco;
   }
 }

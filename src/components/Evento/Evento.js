@@ -3,8 +3,26 @@ import "./Evento.scss";
 
 const Evento = ({ evento, handleButtonClick }) => {
   const renderButton = () => {
-    if (evento.reservado) {
-      return <button className="btn reservado">Reservado</button>;
+    if (evento.estado) {
+      return (
+        <button
+          className="btn reservado"
+          onClick={() => handleButtonClick(evento)}
+        >
+          {evento.estado}
+        </button>
+      );
+    }
+    if (evento.agendado) {
+      console.log("agendado");
+      return (
+        <button
+          className="btn reservado"
+          onClick={() => handleButtonClick(evento)}
+        >
+          Agendado
+        </button>
+      );
     }
     switch (evento.entrada) {
       case "Paga":
@@ -48,7 +66,7 @@ const Evento = ({ evento, handleButtonClick }) => {
             href={evento.href}
             rel="noopener noreferrer"
             target="_blank"
-            className="btn"
+            className="btn ver-mas"
           >
             Ver más
           </a>
@@ -58,6 +76,9 @@ const Evento = ({ evento, handleButtonClick }) => {
   );
 };
 const compare = (prevProps, nextProps) => {
-  return prevProps.evento.reservado === nextProps.evento.reservado;
+  return (
+    prevProps.evento.reservado === nextProps.evento.reservado &&
+    prevProps.evento.estado === nextProps.evento.estado
+  );
 };
 export default React.memo(Evento, compare);

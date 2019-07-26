@@ -3,12 +3,39 @@ import "./Modal.scss";
 
 import Loader from "../Loader/Loader";
 
-const Modal = ({ open, closeModal, evento, confirm, fetching }) => {
+const Modal = ({ open, closeModal, evento, confirm, sendingRequest }) => {
+  let accion = "";
+  switch (evento.entrada) {
+    case "Paga":
+      accion = "comprar";
+      break;
+    case "Gratis":
+      accion = "reservar";
+      break;
+    case "Próximamente":
+      accion = "agendar";
+      break;
+    default:
+      break;
+  }
   const handleConfirmClick = () => {
     let payload = {
-      ...evento
+      ...evento,
+      accion
     };
     confirm(payload);
+  };
+  const renderButton = () => {
+    console.log(evento.estado);
+    return evento.estado ? (
+      <button className="btn reservado" onClick={handleConfirmClick}>
+        {evento.estado}
+      </button>
+    ) : (
+      <button className="btn" onClick={handleConfirmClick}>
+        {accion}
+      </button>
+    );
   };
   return (
     <div className={`backdrop ${open ? "open" : ""}`} onClick={closeModal}>
@@ -17,13 +44,7 @@ const Modal = ({ open, closeModal, evento, confirm, fetching }) => {
         <img src={evento.imagen} alt={evento.titulo} />
         <p>{evento.fecha}</p>
 
-        {fetching ? (
-          <Loader />
-        ) : (
-          <button className="btn" onClick={handleConfirmClick}>
-            Confirmar
-          </button>
-        )}
+        {sendingRequest ? <Loader /> : renderButton()}
       </article>
     </div>
   );

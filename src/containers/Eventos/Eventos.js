@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Eventos.scss";
 
 import Evento from "../../components/Evento/Evento";
 import Modal from "../../components/Modal/Modal";
+import Loader from "../../components/Loader/Loader";
 
-const Eventos = ({ eventos }) => {
-  let API = "";
-  process.env.REACT_APP_STAGE === "dev"
-    ? (API = "http://localhost:5000/")
-    : (API = "https://cck-server.herokuapp.com/");
+const Eventos = () => {
+  // let API = "https://cck-server.herokuapp.com/";
+  let API = "http://localhost:5000/";
+  let [eventos, setEventos] = useState([]);
   let [modalOpen, setModalOpen] = useState(false);
   let [eventoSeleccionado, setEventoSeleccionado] = useState({});
-  let [isFetching, setIsFetching] = useState(false);
+  let [isFetching, setIsFetching] = useState(true);
+  let [isSendingRequest, setIsSendingRequest] = useState(false);
+
+  // Fetch Eventos
+  useEffect(() => {
+    fetch(API)
+      .then(data => data.json())
+      .then(eventos => {
+        setEventos(eventos);
+        setIsFetching(false);
+      });
+  }, [API]);
 
   const handleModalClick = () => {
     setModalOpen(false);
@@ -22,58 +33,58 @@ const Eventos = ({ eventos }) => {
     setEventoSeleccionado(evento);
   };
 
-  const handleConfirm = ({ nombre, fecha, id, entrada }) => {
+  const handleConfirm = ({ nombre, fecha, id, accion }) => {
     let dataEvento = { nombre, fecha, id };
-    console.log(dataEvento);
-    let accion = "";
-    switch (entrada) {
-      case "Paga":
-        accion = "comprar";
-        break;
-      case "Gratis":
-        accion = "reservar";
-        break;
-      case "Próximamente":
-        accion = "agendar";
-        break;
-      default:
-        break;
-    }
-    console.log(accion);
-    setIsFetching(true);
+
+    setIsSendingRequest(true);
     fetch(API + accion, {
       method: "POST",
-      body: JSON.stringify(dataEvento),
+      body: JSON.stringify({ evento: dataEvento }),
       headers: {
         "Content-Type": "application/json"
       }
     })
       .then(res => res.json())
       .then(response => {
-        console.log("Bien!:", response);
-        setIsFetching(false);
+        setIsSendingRequest(false);
+        let nuevoArrEventos = eventos.map(evento => {
+          return evento.nombre === response.evento.nombre &&
+            evento.fecha === response.evento.fecha
+            ? { ...evento, estado: response.evento.estado }
+            : evento;
+        });
+        setEventos(nuevoArrEventos);
+        setEventoSeleccionado({
+          ...eventoSeleccionado,
+          estado: response.evento.estado
+        });
       })
       .catch(error => {
         console.error("Error:", error);
-        setIsFetching(false);
+        setIsSendingRequest(false);
       });
   };
-
   return (
     <article className="Eventos">
-      {eventos.map((evento, i) => (
-        <Evento
-          evento={{ ...evento, id: i }}
-          key={i}
-          handleButtonClick={handleEventClick}
-        />
-      ))}
+      {isFetching ? (
+        <div className="div-loader">
+          <Loader />
+        </div>
+      ) : (
+        eventos.map((evento, i) => (
+          <Evento
+            evento={{ ...evento, id: i }}
+            key={i}
+            handleButtonClick={handleEventClick}
+          />
+        ))
+      )}
       <Modal
         open={modalOpen}
         closeModal={handleModalClick}
         evento={eventoSeleccionado}
         confirm={handleConfirm}
-        fetching={isFetching}
+        sendingRequest={isSendingRequest}
       />
     </article>
   );

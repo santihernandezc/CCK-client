@@ -45,11 +45,6 @@
 
       .btn {
         margin-right: 5px;
-        &.reservado {
-          background-color: lighten($verde, 15%);
-          border: 1px solid $principal-oscuro;
-          color: $blanco;
-        }
       }
     }
   }
