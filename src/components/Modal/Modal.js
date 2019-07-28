@@ -26,7 +26,6 @@ const Modal = ({ open, closeModal, evento, confirm, sendingRequest }) => {
     confirm(payload);
   };
   const renderButton = () => {
-    console.log(evento.estado);
     return evento.estado ? (
       <button className="btn reservado" onClick={handleConfirmClick}>
         {evento.estado}

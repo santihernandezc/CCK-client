@@ -6,8 +6,8 @@ import Modal from "../../components/Modal/Modal";
 import Loader from "../../components/Loader/Loader";
 
 const Eventos = () => {
-  // let API = "https://cck-server.herokuapp.com/";
-  let API = "http://localhost:5000/";
+  let API = "https://cck-server.herokuapp.com/";
+  // let API = "http://localhost:5000/";
   let [eventos, setEventos] = useState([]);
   let [modalOpen, setModalOpen] = useState(false);
   let [eventoSeleccionado, setEventoSeleccionado] = useState({});
